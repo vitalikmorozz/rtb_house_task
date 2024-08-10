@@ -1,0 +1,1 @@
+ALTER TABLE "rtb_house_task_pageVisits" ADD COLUMN "id" serial NOT NULL;
