@@ -25,3 +25,7 @@ You'll need to manually run migrations, unfireunately, I didn't manage to make t
 - Run `npm run db:push`
 - Run `npm run dev`
 - Open `http://localhost:3000/` in the borwser
+
+## Notes
+
+Due to the fact that I'm relying on the random data API that has strict rate limits, you might sometimes see the "Error fetching session, try again a bit later" error message. It's expected, you can just retry like 10-30 seconds later.
