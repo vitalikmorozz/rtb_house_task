@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react";
-import { AxisOptions, Chart } from "react-charts";
+import { type AxisOptions, Chart } from "react-charts";
 import { api } from "~/trpc/react";
 
 type StatsData = {
@@ -21,12 +21,12 @@ export default function DashboardPage() {
         {
             data: [
                 {
-                    secondary: pageViewsStats.data?.filter(i => i.page === "home").reduce((acc) => acc + 1, 0) || 0,
+                    secondary: pageViewsStats.data?.filter(i => i.page === "home").reduce((acc) => acc + 1, 0) ?? 0,
                     primary: "Accessed the initial page",
 
                 },
                 {
-                    secondary: itemViewsStats.data?.filter(i => i.type === "image").reduce((acc) => acc + 1, 0) || 0,
+                    secondary: itemViewsStats.data?.filter(i => i.type === "image").reduce((acc) => acc + 1, 0) ?? 0,
                     primary: "Scrolled to the image",
                 },
             ]

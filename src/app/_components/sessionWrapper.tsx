@@ -1,6 +1,6 @@
 "use client"
 
-import { ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import { useUser } from "../_context/userContext";
 
@@ -10,9 +10,9 @@ export default function SessionWrapper({ children, fallback = null }: {
 }) {
     const isBrowser = typeof window !== 'undefined';
     const [hasSession, setHasSession] = useState<boolean>(false);
-    const { setUser, user } = useUser();
+    const { setUser } = useUser();
 
-    const userData = api.user.get.useQuery({ uid: isBrowser ? sessionStorage.getItem("session_id") || '' : '' }, { enabled: hasSession && sessionStorage !== undefined });
+    const userData = api.user.get.useQuery({ uid: isBrowser ? sessionStorage.getItem("session_id") ?? '' : '' }, { enabled: hasSession && sessionStorage !== undefined });
     const createUserMutation = api.user.create.useMutation();
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export default function SessionWrapper({ children, fallback = null }: {
         if (userData.data) {
             setUser(userData.data);
         }
-    }, [userData])
+    }, [userData, setUser])
 
     if (createUserMutation.isError) {
         return <>Error fetching session, try again a bit later</>;

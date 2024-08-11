@@ -2,8 +2,8 @@
 
 import FillerText from "../_components/fillerText";
 import InViewTrackingWrapper from "../_components/inViewTrackingWrapper";
-import { useUser } from "../_context/userContext";
 import PageTrackingWrapper from "../_components/pageTrackingWrapper";
+import { useUser } from "../_context/userContext";
 
 export default function HomePage() {
     const { user } = useUser();

@@ -8,7 +8,6 @@ import {
   varchar,
   integer,
   pgEnum,
-  serial,
   primaryKey,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from 'drizzle-zod';

@@ -1,6 +1,6 @@
 "use clint"
 
-import { ReactNode, useEffect, useRef } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import { api } from "~/trpc/react";
 import useIsInViewport from "../_hooks/useIsInViewport";
 
@@ -16,7 +16,7 @@ export default function InViewTrackingWrapper({ children, trackingId }: {
     useEffect(() => {
         if (isInViewport)
             addImageView.mutate({ type: 'image', itemId: trackingId, userUid: sessionStorage.getItem("session_id")! });
-    }, [isInViewport])
+    }, [isInViewport, trackingId])
 
     return (
         <div ref={elementRef}>{children}</ div>

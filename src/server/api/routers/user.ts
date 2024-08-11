@@ -4,7 +4,7 @@ import { env } from "~/env";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { userSchema } from "~/server/db/schema";
-import { RandomUser } from "../../../common/types";
+import { type RandomUser } from "../../../common/types";
 import { eq } from "drizzle-orm";
 
 export const userRouter = createTRPCRouter({

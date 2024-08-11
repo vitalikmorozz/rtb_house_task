@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 import { api } from "~/trpc/react";
 import { useUser } from "../_context/userContext";
 
@@ -11,8 +11,8 @@ export default function PageTrackingWrapper({ children, page }: {
 
     useEffect(() => {
         if (!user) return;
-        addPageVisit.mutate({ page, userUid: user?.uid! });
-    }, [user]);
+        addPageVisit.mutate({ page, userUid: user.uid });
+    }, [user, page]);
 
     return (
         <>{children}</>
