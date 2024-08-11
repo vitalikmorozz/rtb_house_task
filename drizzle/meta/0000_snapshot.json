@@ -1,39 +1,59 @@
 {
-  "id": "41153057-fc0f-41a9-9f6b-49ee8bc46ac3",
+  "id": "989fc243-702e-415b-9d63-f599f79007a3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
   "tables": {
-    "public.rtb_house_task_pageVisits": {
-      "name": "rtb_house_task_pageVisits",
+    "public.rtb_house_task_itemViews": {
+      "name": "rtb_house_task_itemViews",
       "schema": "",
       "columns": {
         "uid": {
           "name": "uid",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "number_of_visits": {
-          "name": "number_of_visits",
+        "views": {
+          "name": "views",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": 0
         },
-        "page": {
-          "name": "page",
-          "type": "page",
+        "item_id": {
+          "name": "item_id",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "itemType",
           "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "rtb_house_task_pageVisits_uid_rtb_house_task_user_info_uid_fk": {
-          "name": "rtb_house_task_pageVisits_uid_rtb_house_task_user_info_uid_fk",
-          "tableFrom": "rtb_house_task_pageVisits",
-          "tableTo": "rtb_house_task_user_info",
+        "rtb_house_task_itemViews_uid_rtb_house_task_user_uid_fk": {
+          "name": "rtb_house_task_itemViews_uid_rtb_house_task_user_uid_fk",
+          "tableFrom": "rtb_house_task_itemViews",
+          "tableTo": "rtb_house_task_user",
           "columnsFrom": [
             "uid"
           ],
@@ -44,11 +64,98 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "rtb_house_task_itemViews_uid_item_id_pk": {
+          "name": "rtb_house_task_itemViews_uid_item_id_pk",
+          "columns": [
+            "uid",
+            "item_id"
+          ]
+        },
+        "item_views_pk": {
+          "name": "item_views_pk",
+          "columns": [
+            "uid",
+            "item_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
-    "public.rtb_house_task_user_info": {
-      "name": "rtb_house_task_user_info",
+    "public.rtb_house_task_pageVisits": {
+      "name": "rtb_house_task_pageVisits",
+      "schema": "",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "number_of_visits": {
+          "name": "number_of_visits",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "page": {
+          "name": "page",
+          "type": "page",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rtb_house_task_pageVisits_uid_rtb_house_task_user_uid_fk": {
+          "name": "rtb_house_task_pageVisits_uid_rtb_house_task_user_uid_fk",
+          "tableFrom": "rtb_house_task_pageVisits",
+          "tableTo": "rtb_house_task_user",
+          "columnsFrom": [
+            "uid"
+          ],
+          "columnsTo": [
+            "uid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "rtb_house_task_pageVisits_uid_page_pk": {
+          "name": "rtb_house_task_pageVisits_uid_page_pk",
+          "columns": [
+            "uid",
+            "page"
+          ]
+        },
+        "page_visits_pk": {
+          "name": "page_visits_pk",
+          "columns": [
+            "uid",
+            "page"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.rtb_house_task_user": {
+      "name": "rtb_house_task_user",
       "schema": "",
       "columns": {
         "uid": {
@@ -61,19 +168,19 @@
           "name": "first_name",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "last_name": {
           "name": "last_name",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "avatar": {
           "name": "avatar",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -96,6 +203,13 @@
     }
   },
   "enums": {
+    "public.itemType": {
+      "name": "itemType",
+      "schema": "public",
+      "values": [
+        "image"
+      ]
+    },
     "public.page": {
       "name": "page",
       "schema": "public",
