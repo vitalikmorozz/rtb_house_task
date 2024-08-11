@@ -2,6 +2,7 @@ import { api } from "~/trpc/server"
 
 export default async function DashboardPage() {
     const pageViewsStats = await api.pageVisit.getVisitStats();
+    const itemViewsStats = await api.itemViews.getViewsStats();
 
     return (
         <div>

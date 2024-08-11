@@ -11,7 +11,7 @@ import { itemViewsRouter } from "./routers/imageViews";
 export const appRouter = createTRPCRouter({
   user: userRouter,
   pageVisit: pageVisitsRouter,
-  imageViews: itemViewsRouter,
+  itemViews: itemViewsRouter,
 });
 
 // export type definition of API

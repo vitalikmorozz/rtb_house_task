@@ -8,7 +8,7 @@ export default function InViewTrackingWrapper({ children, trackingId }: {
     children: ReactNode;
     trackingId: string;
 }) {
-    const addImageView = api.imageViews.addItemView.useMutation();
+    const addImageView = api.itemViews.addItemView.useMutation();
 
     const elementRef = useRef<HTMLDivElement>(null);
     const isInViewport = useIsInViewport(elementRef, true);
