@@ -8,13 +8,16 @@ export default function SessionWrapper({ children, fallback = null }: {
     children: ReactNode;
     fallback?: ReactNode;
 }) {
+    const isBrowser = typeof window !== 'undefined';
     const [hasSession, setHasSession] = useState<boolean>(false);
-    const { setUser } = useUser();
+    const { setUser, user } = useUser();
 
-    const userData = api.user.get.useQuery({ uid: sessionStorage.getItem("session_id")! }, { enabled: hasSession });
+    const userData = api.user.get.useQuery({ uid: isBrowser ? sessionStorage.getItem("session_id") || '' : '' }, { enabled: hasSession && sessionStorage !== undefined });
     const createUserMutation = api.user.create.useMutation();
 
     useEffect(() => {
+        if (!isBrowser) return;
+
         const sessionId = sessionStorage.getItem("session_id");
         if (!sessionId) {
             createUserMutation.mutate({}, {
@@ -31,7 +34,8 @@ export default function SessionWrapper({ children, fallback = null }: {
         } else {
             setHasSession(true);
         }
-    }, []);
+
+    }, [isBrowser]);
 
     useEffect(() => {
         if (userData.data) {

@@ -18,13 +18,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <div>
-          <Link href="/">Home</Link>
-          <Link href="/dashboard">Dashbaord</Link>
+        <div className="bg-slate-500 py-5 text-white">
+          <Link className="font-sans text-l font-bold px-4 py-2 mx-2 border rounded-lg hover:bg-slate-600 hover:shadow-md active:bg-slate-700 active:shadow-lg" href="/">Main page</Link>
+          <Link className="font-sans text-l font-bold px-4 py-2 mx-2 border rounded-lg hover:bg-slate-600 hover:shadow-md active:bg-slate-700 active:shadow-lg" href="/dashboard">Dashbaord</Link>
         </div>
-        <UserProvider>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </UserProvider>
+        <div className="container mx-auto p-4">
+          <UserProvider>
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+          </UserProvider>
+        </div>
       </body>
     </html>
   );
